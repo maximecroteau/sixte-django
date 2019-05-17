@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
+    <div>
+        <div class="row mt50">
+            <table class="table striped col s10 offset-s1">
+                <thead>
+                <tr>
+                    <th>Nom du sixte</th>
+                    <th>Lieu</th>
+                    <th>Prix/Equipe</th>
+                    <th>Date et heure</th>
+                    <th>Date limite d'inscription</th>
+                    <th>Lien de l'evenement</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for ad in ads %}
+                    <tr>
+                        <td>{{ ad.sixte_name }}</td>
+                        <td>{{ ad.sixte_location }}</td>
+                        <td>{{ ad.sixte_prix }}€</td>
+                        <td>{{ ad.sixte_date }}</td>
+                        <td>{{ ad.sixte_limit }}</td>
+                        <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Il n'y a aucun sixte encore renseigné</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

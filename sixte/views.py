@@ -1,6 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .forms import CreateAd
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the sixte index.")
+from .models import Ad
+
+
+def home(request):
+    ads = Ad.objects.all()
+    return render(request, 'menu/home.html', {
+        'ads': ads
+    })
+
+
+def create_ad(request):
+    form = CreateAd(request.POST)
+    if form.is_valid():
+            form.save()
+            ads = Ad.objects.all()
+            return render(request, 'menu/home.html', {
+                'ads': ads
+                })
+    else:
+        form = CreateAd()
+    return render(request, 'menu/createad.html', {
+        'form': form,
+        })
