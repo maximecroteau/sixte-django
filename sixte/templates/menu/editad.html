@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <center>
+        <h2 class="flow-text red-text darken-2">Créer votre annonce :</h2>
+        <div class="row mt50">
+            <div class="col s6 offset-s3">
+                <form method="POST" class="post-form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" value="{{ ads_edits.sixte_name }}" name="sixte_name" maxlength="40" required id="sixte_name">
+                            <label for="id_sixte_name">Nom du sixte :</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" value="{{ ads_edits.sixte_location }}" name="sixte_location" maxlength="100" required id="sixte_location">
+                            <label for="id_sixte_location">Lieu :</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label>Prix par equipe :</label>
+                            <p class="range-field">
+                                <input type="range" value="{{ ads_edits.sixte_prix }}" name="sixte_prix" maxlength="0" min="20" max="120" step="1" required id="sixte_prix"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label>Date : </label>
+                            <input type="text" value="{{ ads_edits.sixte_date }}" class="datepicker" id="sixte_date" name="sixte_date">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label>Date de limite d'inscription : </label>
+                            <input type="text" value="{{ ads_edits.sixte_limit }}" class="datepicker" id="sixte_limit" name="sixte_limit">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" name="sixte_link" value="{{ ads_edits.sixte_link }}" maxlength="200" required id="sixte_link">
+                            <label for="id_sixte_link">Lien de l'evenement :</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-default red darken-2">Save</button>
+                            <a class="btn waves-effect red darken-2 btn-co" href="{% url 'home' %}">Annuler</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </center>
+
+{% endblock %}
