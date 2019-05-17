@@ -1,0 +1,40 @@
+{% load widget_tweaks %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+
+<body>
+<div class="row mt50">
+    <div class="input-field col s6 offset-s3">
+        <center>
+            <h2 class="flow-text red-text darken-2 logo">S'inscrire</h2>
+            <div class="col s6 offset-s3">
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <p>
+                            <input id="ID3" type="{{ field.field.widget.input_type }}" name="{{ field.name }}" placeholder="{{ field.label }}">
+                            {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </p>
+                    {% endfor %}
+
+                    <button class="btn waves-effect red darken-2 btn-co" type="submit" name="action">Confirmer</button>
+                    <a class="btn waves-effect red darken-2 btn-co" href="{% url 'login' %}">Se connecter</a>
+                </form>
+            </div>
+        </center>
+    </div>
+</div>
+</body>
+</html>

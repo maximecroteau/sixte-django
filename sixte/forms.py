@@ -8,4 +8,11 @@ class CreateAd(forms.ModelForm):
 
     class Meta:
         model = Ad
-        fields = ('sixte_name', 'sixte_location', 'sixte_prix', 'sixte_date', 'sixte_limit', 'sixte_link')
+        fields = ('creator', 'sixte_name', 'sixte_location', 'sixte_prix', 'sixte_date', 'sixte_limit', 'sixte_link')
+
+
+class SignUpForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')

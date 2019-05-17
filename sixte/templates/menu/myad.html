@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
+    <h2 class="flow-text red-text darken-2 center">Voici votre liste {{ user.username }} :</h2>
     <div>
         <div class="row mt50">
             <table class="table striped col s10 offset-s1">
@@ -13,6 +13,8 @@
                     <th>Date et heure</th>
                     <th>Date limite d'inscription</th>
                     <th>Lien event</th>
+                    <th>Edition</th>
+                    <th>Supression</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -24,10 +26,12 @@
                         <td>{{ ad.sixte_date }}</td>
                         <td>{{ ad.sixte_limit }}</td>
                         <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                        <td><a href="{% url 'edit_ad' id=ad.id %}"><i class="material-icons">edit</i></a></td>
+                        <td><a href="{% url 'del_ad' id=ad.id %}"><i class="material-icons">delete</i></a></td>
                     </tr>
                 {% empty %}
                     <tr>
-                        <td>Il n'y a aucun sixte encore renseigné</td>
+                        <td>Vous n'avez pas encore recensé de sixte</td>
                     </tr>
                 {% endfor %}
                 </tbody>

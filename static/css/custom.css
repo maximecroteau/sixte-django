@@ -55,3 +55,22 @@ input[type=range] {
 .material-icons {
     color: #d32f2f;
 }
+
+.alert {
+  background-color: white;
+  color: white;
+}
+
+.closebtn {
+  color: #d32f2f;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}

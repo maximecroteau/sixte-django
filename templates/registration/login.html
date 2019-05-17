@@ -1,0 +1,44 @@
+{% load widget_tweaks %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+
+<body>
+<div class="row mt50">
+    <div class="col s6 offset-s3">
+        <center>
+            <h2 class="flow-text red-text darken-2 logo">Se connecter</h2>
+
+            {% if form.errors %}
+                <p class="red-text darken-2"><strong>Utilisateur inconnu ou mauvais mot de passe.</strong></p>
+            {% endif %}
+
+            <div class="input-field col s6 offset-s3">
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    <div>
+                        <input type="text" name="username" placeholder="Nom d'utilisateur" maxlength="30" required id="id_username">
+                    </div>
+                    <div>
+                        <input type="password" name="password" placeholder="Mot de passe" required id="id_password">
+                    </div>
+                    <div>
+                        <button class="btn waves-effect red darken-2 btn-co" type="submit" name="action">Connexion</button>
+                        <a class="btn waves-effect red darken-2 btn-co" href="{% url 'signup' %}">S'inscrire</a>
+                    </div>
+                </form>
+            </div>
+        </center>
+    </div>
+</div>
+</body>
+</html>

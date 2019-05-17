@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Ad(models.Model):
+    creator = models.CharField(max_length=25, default="{{ user.username }}")
     sixte_name = models.CharField(max_length=40)
     sixte_location = models.CharField(max_length=100)
     sixte_prix = models.IntegerField()

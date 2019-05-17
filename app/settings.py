@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sixte.apps.SixteConfig',
-
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -120,6 +120,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+LOGIN_REDIRECT_URL = '/sixte/'
+LOGOUT_REDIRECT_URL = '/sixte/'
 
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))

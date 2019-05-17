@@ -14,17 +14,36 @@
 {% endblock %}
 
 <body>
-<nav>
-    {% block nav %}
-        <div class="nav-wrapper red darken-2">
-            <a href="#" class="brand-logo right">Mes Sixtes</a>
-            <ul id="nav-mobile" class="left hide-on-med-and-down">
-                <li><a href="{% url 'home' %}">Liste des sixtes</a></li>
-                <li><a href="{% url 'create_ad' %}">Ajouter un sixte</a></li>
-            </ul>
-        </div>
-    {% endblock %}
-</nav>
+
+{% if user.is_authenticated %}
+    <nav>
+        {% block nav %}
+            <div class="nav-wrapper red darken-2">
+                <a href="#" class="brand-logo right">Mes Sixtes</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="{% url 'home' %}">Liste des sixtes</a></li>
+                    <li><a href="{% url 'create_ad' %}">Ajouter un sixte</a></li>
+                    <li><a href="{% url 'my_ad' %}">Mes sixtes</a></li>
+                    <li><a href="{% url 'logout' %}">Deconnexion</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+    </nav>
+{% else %}
+    <nav>
+        {% block nav2 %}
+            <div class="nav-wrapper red darken-2">
+                <a href="#" class="brand-logo right">Mes Sixtes</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="{% url 'signup' %}">S'inscrire</a></li>
+                    <li><a href="{% url 'login' %}">Connexion</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+    </nav>
+{% endif %}
+
+
 <div>
     {% block content %}
     {% endblock %}
