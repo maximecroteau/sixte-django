@@ -26,3 +26,12 @@ def create_ad(request):
     return render(request, 'menu/createad.html', {
         'form': form,
         })
+
+
+def del_ad(request, id):
+    ad_del = Ad.objects.get(id=id)
+    ad_del.delete()
+    ads = Ad.objects.all()
+    return render(request, 'menu/home.html', {
+        'ads': ads
+        })
