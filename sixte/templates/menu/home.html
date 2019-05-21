@@ -13,6 +13,10 @@
                     <th>Date et heure</th>
                     <th>Date limite d'inscription</th>
                     <th>Lien event</th>
+                    {% if user.is_authenticated %}
+                        <th>Créer equipe</th>
+                    {% endif %}
+
                 </tr>
                 </thead>
                 <tbody>
@@ -24,6 +28,9 @@
                         <td>{{ ad.sixte_date }}</td>
                         <td>{{ ad.sixte_limit }}</td>
                         <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                        {% if user.is_authenticated %}
+                            <td><a href="{% url 'create_team' id=ad.id %}"><i class="material-icons">add_circle_outline</i></a></td>
+                        {% endif %}
                     </tr>
                 {% empty %}
                     <tr>

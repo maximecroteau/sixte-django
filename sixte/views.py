@@ -1,14 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.views.generic.edit import UpdateView
 
 from .forms import CreateAd
 from .forms import SignUpForm
+from .forms import CreateTeam
 
 from .models import Ad
+from .models import Team
 
 
 def home(request):
@@ -50,6 +48,23 @@ def create_ad(request):
         form = CreateAd()
     return render(request, 'menu/createad.html', {
         'form': form,
+        })
+
+
+def create_team(request, id):
+    ad = Ad.objects.get(id=id)
+    form = CreateTeam(request.POST)
+    if form.is_valid():
+            form.save()
+            ads = Ad.objects.all()
+            return render(request, 'menu/home.html', {
+                'ads': ads
+                })
+    else:
+        form = CreateTeam()
+    return render(request, 'menu/createteam.html', {
+        'form': form,
+        'ad': ad,
         })
 
 

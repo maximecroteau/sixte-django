@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -10,7 +12,7 @@ class Ad(models.Model):
     sixte_prix = models.IntegerField()
     sixte_date = models.CharField(max_length=11)
     sixte_limit = models.CharField(max_length=11)
-    sixte_link = models.URLField()
+    sixte_link = models.URLField(blank=True)
 
     class Meta:
         verbose_name = "annonce"
@@ -19,3 +21,21 @@ class Ad(models.Model):
     def __str__(self):
         return self.sixte_name
 
+
+class Team(models.Model):
+    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
+    team_name = models.CharField(max_length=30)
+    captain = models.CharField(max_length=25, default="{{ user.username }}")
+    player1 = models.CharField(max_length=25, blank=True)
+    player2 = models.CharField(max_length=25, blank=True)
+    player3 = models.CharField(max_length=25, blank=True)
+    player4 = models.CharField(max_length=25, blank=True)
+    player5 = models.CharField(max_length=25, blank=True)
+    player6 = models.CharField(max_length=25, blank=True)
+
+    class Meta:
+        verbose_name = "equipe"
+        ordering = ['ad']
+
+    def __str__(self):
+        return self.team_name
