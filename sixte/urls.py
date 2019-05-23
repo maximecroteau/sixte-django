@@ -10,5 +10,6 @@ urlpatterns = [
     path('create_team/<int:id>', views.create_team, name='create_team'),
     path('teams/<int:id>', views.view_team, name='view_team'),
     path('my_ad', views.my_ad, name='my_ad'),
+    path('my_teams', views.my_teams, name='my_teams'),
     path('signup', views.signup, name='signup'),
 ]

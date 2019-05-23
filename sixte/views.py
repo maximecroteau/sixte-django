@@ -107,3 +107,11 @@ def view_team(request, id):
     return render(request, 'menu/teams.html', {
         'teams': teams,
     })
+
+
+def my_teams(request):
+    user = request.user
+    teams = Team.objects.filter(captain=user)
+    return render(request, 'menu/myteams.html', {
+        'teams': teams,
+    })
