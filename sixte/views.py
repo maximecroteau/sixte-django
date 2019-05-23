@@ -100,3 +100,10 @@ def my_ad(request):
     return render(request, 'menu/myad.html', {
         'ads': ads,
     })
+
+
+def view_team(request, id):
+    teams = Team.objects.filter(ad__id=id)
+    return render(request, 'menu/teams.html', {
+        'teams': teams,
+    })

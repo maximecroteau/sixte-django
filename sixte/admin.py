@@ -11,8 +11,8 @@ class AdAdmin(admin.ModelAdmin):
 
 
 class TeamAdmin(admin.ModelAdmin):
-    list_display = ('ad', 'team_name', 'captain', 'player1', 'player2', 'player3', 'player4', 'player5', 'player6')
-    list_filter = ('ad', 'team_name', 'captain')
+    list_display = ('team_name', 'captain', 'player1', 'player2', 'player3', 'player4', 'player5', 'player6')
+    list_filter = ('team_name', 'captain')
 
 
 admin.site.register(Ad, AdAdmin)
