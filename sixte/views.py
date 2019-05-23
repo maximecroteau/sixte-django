@@ -115,3 +115,21 @@ def my_teams(request):
     return render(request, 'menu/myteams.html', {
         'teams': teams,
     })
+
+
+def edit_team(request, id):
+    user = request.user
+    edit_team = Team.objects.get(id=id)
+    form = CreateTeam(request.POST, instance=edit_team)
+    if form.is_valid():
+            form.save()
+            teams = Team.objects.filter(captain=user)
+            return render(request, 'menu/myteams.html', {
+                'teams': teams
+                })
+    else:
+        form = CreateTeam()
+    return render(request, 'menu/editteam.html', {
+        'edit_team': edit_team,
+        'form': form,
+        })

@@ -18,6 +18,9 @@
                                     <li class = "collection-item">{{ team.player4 }}</li>
                                     <li class = "collection-item">{{ team.player5 }}</li>
                                     <li class = "collection-item">{{ team.player6 }}</li>
+                                    <li class = "collection-item">
+                                        <a href="{% url 'edit_team' id=team.id %}"><i class="material-icons">edit</i></a>
+                                    </li>
                                 </ul>
                                 </div>
                             </div>

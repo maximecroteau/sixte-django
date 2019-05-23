@@ -26,12 +26,12 @@ class Team(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     team_name = models.CharField(max_length=30)
     captain = models.CharField(max_length=25, default="{{ user.username }}")
-    player1 = models.CharField(max_length=25, blank=True)
-    player2 = models.CharField(max_length=25, blank=True)
-    player3 = models.CharField(max_length=25, blank=True)
-    player4 = models.CharField(max_length=25, blank=True)
-    player5 = models.CharField(max_length=25, blank=True)
-    player6 = models.CharField(max_length=25, blank=True)
+    player1 = models.CharField(max_length=25)
+    player2 = models.CharField(max_length=25)
+    player3 = models.CharField(max_length=25)
+    player4 = models.CharField(max_length=25)
+    player5 = models.CharField(max_length=25)
+    player6 = models.CharField(max_length=25)
 
     class Meta:
         verbose_name = "equipe"
