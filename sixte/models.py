@@ -25,7 +25,8 @@ class Ad(models.Model):
 class Team(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     team_name = models.CharField(max_length=30)
-    captain = models.CharField(max_length=25, default="{{ user.username }}")
+    creator = models.CharField(max_length=25, default="{{ user.username }}")
+    captain = models.CharField(max_length=25)
     player1 = models.CharField(max_length=25)
     player2 = models.CharField(max_length=25)
     player3 = models.CharField(max_length=25)

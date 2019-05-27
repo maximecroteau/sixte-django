@@ -23,4 +23,4 @@ class CreateTeam(forms.ModelForm):
 
     class Meta:
         model = Team
-        fields = ('ad', 'team_name', 'captain', 'player1', 'player2', 'player3', 'player4', 'player5', 'player6')
+        fields = ('ad', 'creator', 'team_name', 'captain', 'player1', 'player2', 'player3', 'player4', 'player5', 'player6')

@@ -13,6 +13,10 @@
                     </div>
 
                     <div class="row">
+                        <input style="display: none;" type="text" name="creator" value="{{ user.username }}" maxlength="25" required id="creator">
+                    </div>
+
+                    <div class="row">
                         <div class="input-field col s12">
                             <input type="text" name="team_name" maxlength="30" required id="team_name">
                             <label for="team_name">Nom d'equipe :</label>
@@ -22,7 +26,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" name="captain" maxlength="25" value="{{ user.username }}" required id="captain">
-                            <label for="captain">Nom d'equipe :</label>
+                            <label for="captain">Capitaine :</label>
                         </div>
                     </div>
 

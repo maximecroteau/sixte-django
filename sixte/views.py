@@ -111,7 +111,7 @@ def view_team(request, id):
 
 def my_teams(request):
     user = request.user
-    teams = Team.objects.filter(captain=user)
+    teams = Team.objects.filter(creator=user)
     return render(request, 'menu/myteams.html', {
         'teams': teams,
     })
@@ -123,7 +123,7 @@ def edit_team(request, id):
     form = CreateTeam(request.POST, instance=edit_team)
     if form.is_valid():
             form.save()
-            teams = Team.objects.filter(captain=user)
+            teams = Team.objects.filter(creator=user)
             return render(request, 'menu/myteams.html', {
                 'teams': teams
                 })
