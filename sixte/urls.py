@@ -9,6 +9,7 @@ urlpatterns = [
     path('edit_ad/<int:id>', views.edit_ad, name='edit_ad'),
     path('create_team/<int:id>', views.create_team, name='create_team'),
     path('teams/<int:id>', views.view_team, name='view_team'),
+    path('del_team/<int:id>', views.del_team, name='del_team'),
     path('edit_team/<int:id>', views.edit_team, name='edit_team'),
     path('my_ad', views.my_ad, name='my_ad'),
     path('my_teams', views.my_teams, name='my_teams'),

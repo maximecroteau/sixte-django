@@ -68,6 +68,16 @@ def create_team(request, id):
         })
 
 
+def del_team(request, id):
+    team_del = Team.objects.get(id=id)
+    team_del.delete()
+    user = request.user
+    teams = Team.objects.filter(creator=user)
+    return render(request, 'menu/myteams.html', {
+        'teams': teams
+        })
+
+
 def del_ad(request, id):
     ad_del = Ad.objects.get(id=id)
     ad_del.delete()
