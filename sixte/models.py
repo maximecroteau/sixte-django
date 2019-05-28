@@ -11,7 +11,7 @@ class Ad(models.Model):
     sixte_location = models.CharField(max_length=100)
     sixte_prix = models.IntegerField()
     sixte_date = models.CharField(max_length=11)
-    sixte_limit = models.CharField(max_length=11)
+    sixte_limit = models.CharField(max_length=11, blank=True)
     sixte_link = models.URLField(blank=True)
 
     class Meta:
@@ -27,12 +27,12 @@ class Team(models.Model):
     team_name = models.CharField(max_length=30)
     creator = models.CharField(max_length=25, default="{{ user.username }}")
     captain = models.CharField(max_length=25)
-    player1 = models.CharField(max_length=25)
-    player2 = models.CharField(max_length=25)
-    player3 = models.CharField(max_length=25)
-    player4 = models.CharField(max_length=25)
-    player5 = models.CharField(max_length=25)
-    player6 = models.CharField(max_length=25)
+    player1 = models.CharField(max_length=25, blank=True)
+    player2 = models.CharField(max_length=25, blank=True)
+    player3 = models.CharField(max_length=25, blank=True)
+    player4 = models.CharField(max_length=25, blank=True)
+    player5 = models.CharField(max_length=25, blank=True)
+    player6 = models.CharField(max_length=25, blank=True)
 
     class Meta:
         verbose_name = "equipe"
