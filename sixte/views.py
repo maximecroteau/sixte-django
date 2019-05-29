@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from friendship.models import Friend
+from friendship.models import FriendshipRequest
+from django.shortcuts import redirect
 
 from .forms import CreateAd
 from .forms import SignUpForm
@@ -27,10 +31,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            ads = Ad.objects.all()
-            return render(request, 'menu/home.html',{
-                'ads': ads
-            })
+            return redirect('home')
     else:
         form = SignUpForm()
     return render(request, 'signup/signup.html', {
@@ -42,10 +43,7 @@ def create_ad(request):
     form = CreateAd(request.POST)
     if form.is_valid():
             form.save()
-            ads = Ad.objects.all()
-            return render(request, 'menu/home.html', {
-                'ads': ads
-                })
+            return redirect('home')
     else:
         form = CreateAd()
     return render(request, 'menu/createad.html', {
@@ -58,10 +56,8 @@ def create_team(request, id):
     form = CreateTeam(request.POST)
     if form.is_valid():
             form.save()
-            ads = Ad.objects.all()
-            return render(request, 'menu/home.html', {
-                'ads': ads
-                })
+            return redirect('home')
+
     else:
         form = CreateTeam()
     return render(request, 'menu/createteam.html', {
@@ -73,20 +69,13 @@ def create_team(request, id):
 def del_team(request, id):
     team_del = Team.objects.get(id=id)
     team_del.delete()
-    user = request.user
-    teams = Team.objects.filter(creator=user)
-    return render(request, 'menu/myteams.html', {
-        'teams': teams
-        })
+    return redirect('my_teams')
 
 
 def del_ad(request, id):
     ad_del = Ad.objects.get(id=id)
     ad_del.delete()
-    ads = Ad.objects.all()
-    return render(request, 'menu/myad.html', {
-        'ads': ads
-        })
+    return redirect('my_ad')
 
 
 def edit_ad(request, id):
@@ -94,10 +83,7 @@ def edit_ad(request, id):
     form = CreateAd(request.POST, instance=ads_edits)
     if form.is_valid():
             form.save()
-            ads = Ad.objects.all()
-            return render(request, 'menu/home.html', {
-                'ads': ads
-                })
+            return redirect('my_ad')
     else:
         form = CreateAd()
     return render(request, 'menu/editad.html', {
@@ -130,18 +116,52 @@ def my_teams(request):
 
 
 def edit_team(request, id):
-    user = request.user
     edit_team = Team.objects.get(id=id)
     form = CreateTeam(request.POST, instance=edit_team)
     if form.is_valid():
             form.save()
-            teams = Team.objects.filter(creator=user)
-            return render(request, 'menu/myteams.html', {
-                'teams': teams
-                })
+            return redirect('my_teams')
     else:
         form = CreateTeam()
     return render(request, 'menu/editteam.html', {
         'edit_team': edit_team,
         'form': form,
         })
+
+
+def friendlist(request):
+    # List of this user's friends
+    user = request.user
+
+    friends = Friend.objects.friends(user)
+    requests = Friend.objects.unread_requests(user=user)
+    myasks = User.objects.filter(friendship_requests_received__from_user=user)
+    users = User.objects.exclude(friends__from_user=user).exclude(id=user.id)\
+        .exclude(friendship_requests_received__from_user=user)
+
+    return render(request, 'profil/friendlist.html', {
+        'user': user,
+        'users': users,
+        'friends': friends,
+        'requests': requests,
+        'myasks': myasks,
+        })
+
+
+def askfriend(request, id):
+    other_user = User.objects.get(pk=id)
+    Friend.objects.add_friend(request.user, other_user)
+    return redirect('friendlist')
+
+
+def addfriend(request, id):
+    friend_request = FriendshipRequest.objects.get(from_user_id=id)
+    friend_request.accept()
+    return redirect('friendlist')
+
+
+def refusfriend(request, id):
+    friend_request = FriendshipRequest.objects.get(from_user_id=id, to_user=request.user)
+    friend_request.reject()
+    friend_request.delete()
+    return redirect('friendlist')

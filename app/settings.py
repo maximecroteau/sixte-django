@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sixte.apps.SixteConfig',
     'widget_tweaks',
+    'friendship',
 ]
 
 MIDDLEWARE = [

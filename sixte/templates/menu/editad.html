@@ -2,7 +2,7 @@
 
 {% block content %}
     <center>
-        <h2 class="flow-text red-text darken-2">Créer votre annonce :</h2>
+        <h2 class="flow-text red-text darken-2">Modifier votre annonce :</h2>
         <div class="row mt50">
             <div class="col s6 offset-s3">
                 <form method="POST" class="post-form">
@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <label>Date : </label>
-                            <input type="text" value="{{ ads_edits.sixte_date }}" class="datepicker" id="sixte_date" name="sixte_date">
+                            <input type="text" value="{{ ads_edits.sixte_date }}" class="datepicker" required id="sixte_date" name="sixte_date">
                         </div>
                     </div>
 
@@ -46,7 +46,7 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" name="sixte_link" value="{{ ads_edits.sixte_link }}" maxlength="200" required id="sixte_link">
+                            <input type="text" name="sixte_link" value="{{ ads_edits.sixte_link }}" maxlength="200"  id="sixte_link">
                             <label for="id_sixte_link">Lien de l'evenement :</label>
                         </div>
                     </div>

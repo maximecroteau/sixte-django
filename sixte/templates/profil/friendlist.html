@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="flow-text red-text darken-2 center">Voici votre espace ami {{ user.first_name }} :</h2>
+    <div>
+        <div class="row mt50">
+            <table class="table striped col s6">
+                <thead>
+                <tr>
+                    <th>Nom :</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for friend in friends %}
+                    <tr>
+                        <td>{{ friend }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Vous n'avez pas encore d'amis</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <table class="table striped col s6">
+                <thead>
+                <tr>
+                    <th>Demande d'ami de :</th>
+                    <th>Accepter</th>
+                    <th>Refuser</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for request in requests %}
+                    <tr>
+                        <td>{{ request.from_user }}</td>
+                        <td><a href="{% url 'addfriend' id=request.from_user_id %}"><i class="material-icons">check_circle</i></a></td>
+                        <td><a href="{% url 'refusfriend' id=request.from_user_id %}"><i class="material-icons">close</i></a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Vous n'avez pas recu de demande d'amis</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <table class="table striped col s6">
+                <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                    <th>Ajouter</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users%}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td><a href="{% url 'askfriend' id=user.id %}"><i class="material-icons">check_circle</i></a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Vous n'avez pas recu de demande d'amis</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <table class="table striped col s6">
+                <thead>
+                <tr>
+                    <th>Utilisateur</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for myask in myasks%}
+                    <tr>
+                        <td>{{ myask.username }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>Vous n'avez pas de demande en cours</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

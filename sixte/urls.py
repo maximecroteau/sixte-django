@@ -14,4 +14,8 @@ urlpatterns = [
     path('my_ad', views.my_ad, name='my_ad'),
     path('my_teams', views.my_teams, name='my_teams'),
     path('signup', views.signup, name='signup'),
+    path('friendlist', views.friendlist, name='friendlist'),
+    path('askfriend/<int:id>', views.askfriend, name='askfriend'),
+    path('addfriend/<int:id>', views.addfriend, name='addfriend'),
+    path('refusfriend/<int:id>', views.refusfriend, name='refusfriend'),
 ]

@@ -6,8 +6,6 @@ from .models import Team
 
 
 class CreateAd(forms.ModelForm):
-    sixte_limit = forms.CharField(required=False)
-    sixte_link = forms.URLField(required=False)
 
     class Meta:
         model = Ad
