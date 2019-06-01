@@ -18,4 +18,5 @@ urlpatterns = [
     path('askfriend/<int:id>', views.askfriend, name='askfriend'),
     path('addfriend/<int:id>', views.addfriend, name='addfriend'),
     path('refusfriend/<int:id>', views.refusfriend, name='refusfriend'),
+    path('searchad', views.searchad, name='searchad'),
 ]

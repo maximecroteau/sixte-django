@@ -42,28 +42,28 @@ def signup(request):
 def create_ad(request):
     form = CreateAd(request.POST)
     if form.is_valid():
-            form.save()
-            return redirect('home')
+        form.save()
+        return redirect('home')
     else:
         form = CreateAd()
     return render(request, 'menu/createad.html', {
         'form': form,
-        })
+    })
 
 
 def create_team(request, id):
     ad = Ad.objects.get(id=id)
     form = CreateTeam(request.POST)
     if form.is_valid():
-            form.save()
-            return redirect('home')
+        form.save()
+        return redirect('home')
 
     else:
         form = CreateTeam()
     return render(request, 'menu/createteam.html', {
         'form': form,
         'ad': ad,
-        })
+    })
 
 
 def del_team(request, id):
@@ -82,14 +82,14 @@ def edit_ad(request, id):
     ads_edits = Ad.objects.get(id=id)
     form = CreateAd(request.POST, instance=ads_edits)
     if form.is_valid():
-            form.save()
-            return redirect('my_ad')
+        form.save()
+        return redirect('my_ad')
     else:
         form = CreateAd()
     return render(request, 'menu/editad.html', {
         'ads_edits': ads_edits,
         'form': form,
-        })
+    })
 
 
 def my_ad(request):
@@ -119,14 +119,14 @@ def edit_team(request, id):
     edit_team = Team.objects.get(id=id)
     form = CreateTeam(request.POST, instance=edit_team)
     if form.is_valid():
-            form.save()
-            return redirect('my_teams')
+        form.save()
+        return redirect('my_teams')
     else:
         form = CreateTeam()
     return render(request, 'menu/editteam.html', {
         'edit_team': edit_team,
         'form': form,
-        })
+    })
 
 
 def friendlist(request):
@@ -136,7 +136,7 @@ def friendlist(request):
     friends = Friend.objects.friends(user)
     requests = Friend.objects.unread_requests(user=user)
     myasks = User.objects.filter(friendship_requests_received__from_user=user)
-    users = User.objects.exclude(friends__from_user=user).exclude(id=user.id)\
+    users = User.objects.exclude(friends__from_user=user).exclude(id=user.id) \
         .exclude(friendship_requests_received__from_user=user)
 
     return render(request, 'profil/friendlist.html', {
@@ -145,7 +145,7 @@ def friendlist(request):
         'friends': friends,
         'requests': requests,
         'myasks': myasks,
-        })
+    })
 
 
 def askfriend(request, id):
@@ -165,3 +165,11 @@ def refusfriend(request, id):
     friend_request.reject()
     friend_request.delete()
     return redirect('friendlist')
+
+
+def searchad(request):
+    query = request.POST['usr_query']
+    ads = Ad.objects.filter(sixte_name__icontains=query)
+    return render(request, 'menu/home.html', {
+        'ads': ads,
+     })
