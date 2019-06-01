@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2 class="flow-text red-text darken-2 center">Voici votre espace ami {{ user.first_name }} :</h2>
-    <div>
+
+    <div id="Page1">
+        <div class="input-field col s6 offset-s3">
+            <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes demandes reçues</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Rechercher</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
+            </center>
+        </div>
         <div class="row mt50">
-            <table class="table striped col s6">
+            <table class="table striped col s10 offset-s1">
                 <thead>
                 <tr>
                     <th>Nom :</th>
@@ -22,15 +30,27 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
 
-            <table class="table striped col s6">
-                <thead>
-                <tr>
-                    <th>Demande d'ami de :</th>
-                    <th>Accepter</th>
-                    <th>Refuser</th>
-                </tr>
-                </thead>
+    <div id="Page2" style="display:none">
+        <div class="input-field col s6 offset-s3">
+            <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes demandes reçues</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Rechercher</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
+            </center>
+        </div>
+
+        <div class="row mt50">
+            <table class="table striped col s10 offset-s1">            <thead>
+            <tr>
+                <th>Demande d'ami de :</th>
+                <th>Accepter</th>
+                <th>Refuser</th>
+            </tr>
+            </thead>
                 <tbody>
                 {% for request in requests %}
                     <tr>
@@ -45,8 +65,22 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
 
-            <table class="table striped col s6">
+
+    <div id="Page3" style="display:none">
+        <div class="input-field col s6 offset-s3">
+            <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes demandes reçues</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Rechercher</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
+            </center>
+        </div>
+        <div class="row mt50">
+
+            <table class="table striped col s10 offset-s1">
                 <thead>
                 <tr>
                     <th>Utilisateur</th>
@@ -66,8 +100,21 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+    </div>
 
-            <table class="table striped col s6">
+    <div id="Page4" style="display:none">
+        <div class="input-field col s6 offset-s3">
+            <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes demandes reçues</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Rechercher</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
+            </center>
+        </div>
+        <div class="row mt50">
+
+            <table class="table striped col s10 offset-s1">
                 <thead>
                 <tr>
                     <th>Utilisateur</th>
@@ -88,4 +135,11 @@
         </div>
     </div>
 
+    <script>function show(shown, hidden1, hidden2, hidden3) {
+        document.getElementById(shown).style.display='block';
+        document.getElementById(hidden1).style.display='none';
+        document.getElementById(hidden2).style.display='none';
+        document.getElementById(hidden3).style.display='none';
+        return false;
+    }</script>
 {% endblock %}

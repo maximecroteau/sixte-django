@@ -175,3 +175,4 @@ def searchad(request):
     return render(request, 'menu/home.html', {
         'ads': ads,
      })
+
