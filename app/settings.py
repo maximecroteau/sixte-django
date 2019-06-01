@@ -121,8 +121,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-LOGIN_REDIRECT_URL = '/sixte/'
-LOGOUT_REDIRECT_URL = '/sixte/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
