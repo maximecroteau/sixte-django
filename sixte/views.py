@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from friendship.models import Friend
 from friendship.models import FriendshipRequest
 from django.shortcuts import redirect
+from django.db.models import Q
+
 
 from .forms import CreateAd
 from .forms import SignUpForm
@@ -169,7 +171,7 @@ def refusfriend(request, id):
 
 def searchad(request):
     query = request.POST['usr_query']
-    ads = Ad.objects.filter(sixte_name__icontains=query)
+    ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query))
     return render(request, 'menu/home.html', {
         'ads': ads,
      })
