@@ -2,7 +2,40 @@
 
 {% block content %}
 
-    <div id="Page1">
+    <div id="Page1" style="display:none">
+        <div class="input-field col s6 offset-s3">
+            <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Rechercher</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes Amis</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Mes demandes reçues</a>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
+            </center>
+        </div>
+        <table class="table striped col s10 offset-s1">
+            <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Ajouter</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users%}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td><a href="{% url 'askfriend' id=user.id %}"><i class="material-icons">check_circle</i></a></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>Vous n'avez pas recu de demande d'amis</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+
+    <div id="Page2">
         <div class="input-field col s6 offset-s3">
             <center>
                 <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
@@ -33,7 +66,7 @@
         </div>
     </div>
 
-    <div id="Page2" style="display:none">
+    <div id="Page3" style="display:none">
         <div class="input-field col s6 offset-s3">
             <center>
                 <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
@@ -69,39 +102,6 @@
     </div>
 
 
-    <div id="Page3" style="display:none">
-        <div class="input-field col s6 offset-s3">
-            <center>
-                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2', 'Page3', 'Page4');">Mes Amis</a>
-                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1', 'Page3', 'Page4');">Mes demandes reçues</a>
-                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page3','Page1', 'Page2', 'Page4');">Rechercher</a>
-                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page4','Page1', 'Page2', 'Page3');">Mes demandes en cours</a>
-            </center>
-        </div>
-        <div class="row mt50">
-
-            <table class="table striped col s10 offset-s1">
-                <thead>
-                <tr>
-                    <th>Utilisateur</th>
-                    <th>Ajouter</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users%}
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td><a href="{% url 'askfriend' id=user.id %}"><i class="material-icons">check_circle</i></a></td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>Vous n'avez pas recu de demande d'amis</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
 
     <div id="Page4" style="display:none">
         <div class="input-field col s6 offset-s3">
@@ -117,13 +117,15 @@
             <table class="table striped col s10 offset-s1">
                 <thead>
                 <tr>
-                    <th>Utilisateur</th>
+                    <th>Utilisateur : </th>
+                    <th>Demande envoyé le :</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for myask in myasks%}
+                {% for myask in myasks %}
                     <tr>
-                        <td>{{ myask.username }}</td>
+                        <td>{{ myask.to_user }}</td>
+                        <td>{{ myask.created }}</td>
                     </tr>
                 {% empty %}
                     <tr>

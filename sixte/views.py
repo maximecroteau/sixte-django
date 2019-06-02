@@ -6,7 +6,6 @@ from friendship.models import FriendshipRequest
 from django.shortcuts import redirect
 from django.db.models import Q
 
-
 from .forms import CreateAd
 from .forms import SignUpForm
 from .forms import CreateTeam
@@ -137,7 +136,7 @@ def friendlist(request):
 
     friends = Friend.objects.friends(user)
     requests = Friend.objects.unread_requests(user=user)
-    myasks = User.objects.filter(friendship_requests_received__from_user=user)
+    myasks = Friend.objects.sent_requests(user=user)
     users = User.objects.exclude(friends__from_user=user).exclude(id=user.id) \
         .exclude(friendship_requests_received__from_user=user)
 
@@ -174,5 +173,4 @@ def searchad(request):
     ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query))
     return render(request, 'menu/home.html', {
         'ads': ads,
-     })
-
+    })
