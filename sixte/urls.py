@@ -19,4 +19,5 @@ urlpatterns = [
     path('addfriend/<int:id>', views.addfriend, name='addfriend'),
     path('refusfriend/<int:id>', views.refusfriend, name='refusfriend'),
     path('searchad', views.searchad, name='searchad'),
+    path('searchuser', views.searchuser, name='searchuser'),
 ]

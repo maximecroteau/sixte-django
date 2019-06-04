@@ -2,14 +2,14 @@
 
 {% block content %}
     <center>
-        <h2 class="flow-text red-text darken-2">Créer votre annonce : </h2>
+        <h2 class="flow-text red-text darken-2">Modifier votre équipe : </h2>
         <div class="row mt50">
             <div class="col s6 offset-s3">
                 <form method="POST" class="post-form">
                     {% csrf_token %}
 
                     <div class="row">
-                        <input style="display: none;" type="text" name="ad" value="{{ edit_team.ad.id }}" maxlength="25" required id="ad">
+                        <input style="display: none;" type="text" name="ad" value="{{ team_edit.ad.id }}" maxlength="25" required id="ad">
                     </div>
 
                     <div class="row">
@@ -19,52 +19,52 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.team_name }}" name="team_name" maxlength="30" required id="team_name">
+                            <input type="text" value="{{ team_edit.team_name }}" name="team_name" maxlength="30" required id="team_name">
                             <label for="team_name">Nom d'equipe :</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" name="captain" maxlength="25" value="{{ edit_team.captain }}" required id="captain">
+                            <input type="text" name="captain" maxlength="25" value="{{ team_edit.captain }}" required id="captain">
                             <label for="captain">Capitaine :</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" name="player1" value="{{ edit_team.player1 }}" maxlength="25" id="player1">
+                            <input type="text" name="player1" value="{{ preset.player1 }}" maxlength="25" id="player1">
                             <label for="player1">Joueur 1 :</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.player2 }}" name="player2" maxlength="25" id="player2">
+                            <input type="text" value="{{ preset.player2 }}" name="player2" maxlength="25" id="player2">
                             <label for="player2">Joueur 2 :</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.player3 }}" name="player3" maxlength="25" id="player3">
+                            <input type="text" value="{{ preset.player3 }}" name="player3" maxlength="25" id="player3">
                             <label for="player3">Joueur 3 :</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.player4 }}" name="player4" maxlength="25" id="player4">
+                            <input type="text" value="{{ preset.player4 }}" name="player4" maxlength="25" id="player4">
                             <label for="player4">Joueur 4 :</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.player5 }}" name="player5" maxlength="25" id="player5">
+                            <input type="text" value="{{ preset.player5 }}" name="player5" maxlength="25" id="player5">
                             <label for="player5">Joueur 5 :</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" value="{{ edit_team.player6 }}" name="player6" maxlength="25" id="player6">
+                            <input type="text" value="{{ preset.player6 }}" name="player6" maxlength="25" id="player6">
                             <label for="player6">Joueur 6 :</label>
                         </div>
                     </div>

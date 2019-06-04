@@ -80,15 +80,17 @@ def del_ad(request, id):
 
 
 def edit_ad(request, id):
-    ads_edits = Ad.objects.get(id=id)
-    form = CreateAd(request.POST, instance=ads_edits)
+    ads_edit = Ad.objects.get(id=id)
+    form = CreateAd(request.POST, instance=ads_edit)
+    preset = Ad.objects.get(id=id)
     if form.is_valid():
         form.save()
         return redirect('my_ad')
     else:
         form = CreateAd()
     return render(request, 'menu/editad.html', {
-        'ads_edits': ads_edits,
+        'ads_edit': ads_edit,
+        'preset': preset,
         'form': form,
     })
 
@@ -117,15 +119,17 @@ def my_teams(request):
 
 
 def edit_team(request, id):
-    edit_team = Team.objects.get(id=id)
-    form = CreateTeam(request.POST, instance=edit_team)
+    team_edit = Team.objects.get(id=id)
+    form = CreateTeam(request.POST, instance=team_edit)
+    preset = Team.objects.get(id=id)
     if form.is_valid():
         form.save()
         return redirect('my_teams')
     else:
         form = CreateTeam()
     return render(request, 'menu/editteam.html', {
-        'edit_team': edit_team,
+        'team_edit': team_edit,
+        'preset': preset,
         'form': form,
     })
 
@@ -141,7 +145,6 @@ def friendlist(request):
         .exclude(friendship_requests_received__from_user=user)
 
     return render(request, 'profil/friendlist.html', {
-        'user': user,
         'users': users,
         'friends': friends,
         'requests': requests,
@@ -173,4 +176,23 @@ def searchad(request):
     ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query))
     return render(request, 'menu/home.html', {
         'ads': ads,
+    })
+
+
+def searchuser(request):
+    user = request.user
+    query = request.POST['usr_query']
+
+    friends = Friend.objects.friends(user)
+    requests = Friend.objects.unread_requests(user=user)
+    myasks = Friend.objects.sent_requests(user=user)
+
+    users = User.objects.exclude(friends__from_user=user).exclude(id=user.id) \
+        .exclude(friendship_requests_received__from_user=user).filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+
+    return render(request, 'profil/friendlist.html', {
+        'users': users,
+        'friends': friends,
+        'requests': requests,
+        'myasks': myasks,
     })
