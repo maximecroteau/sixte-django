@@ -5,6 +5,7 @@ from friendship.models import Friend
 from friendship.models import FriendshipRequest
 from django.shortcuts import redirect
 from django.db.models import Q
+import datetime
 
 from .forms import CreateAd
 from .forms import SignUpForm
@@ -15,9 +16,12 @@ from .models import Team
 
 
 def home(request):
-    ads = Ad.objects.all().order_by('-sixte_date')
+    currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
+    ads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    oldads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
     return render(request, 'menu/home.html', {
-        'ads': ads
+        'ads': ads,
+        'oldads': oldads
     })
 
 
@@ -97,7 +101,7 @@ def edit_ad(request, id):
 
 def my_ad(request):
     user = request.user
-    ads = Ad.objects.filter(creator=user)
+    ads = Ad.objects.filter(creator=user).order_by('-sixte_date')
     return render(request, 'menu/myad.html', {
         'ads': ads,
     })
@@ -173,9 +177,13 @@ def refusfriend(request, id):
 
 def searchad(request):
     query = request.POST['usr_query']
-    ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query))
+    currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
+    ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query)).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    oldads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
+
     return render(request, 'menu/home.html', {
         'ads': ads,
+        'oldads': oldads,
     })
 
 

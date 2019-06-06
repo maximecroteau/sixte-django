@@ -1,60 +1,121 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
-    <div>
-        <div class="row mt50">
+
+    <div id="Page1">
+        <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
+
+        <div>
+            <div class="row mt50">
 
 
-    <div class="input-field col s6 offset-s3">
-        <center>
-            <form class="search" action="{% url 'searchad' %}" method='post'>
-                {% csrf_token %}
-                <input type="search" placeholder="Rechercher..." name="usr_query"
-                       value='{{ query }}'>
-            </form>
-        </center>
-    </div>
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1');">Voir les sixtes passés</a>
+
+                        <form class="search" action="{% url 'searchad' %}" method='post'>
+                            {% csrf_token %}
+                            <input type="search" placeholder="Rechercher..." name="usr_query"
+                                   value='{{ query }}'>
+                        </form>
+                    </center>
+                </div>
 
 
-            <table class="table striped col s10 offset-s1">
-                <thead>
-                <tr>
-                    <th>Nom du sixte</th>
-                    <th>Lieu</th>
-                    <th>Prix/Equipe</th>
-                    <th>Date et heure</th>
-                    <th>Date limite d'inscription</th>
-                    <th>Lien event</th>
-                    <th>Les equipes</th>
-                    {% if user.is_authenticated %}
-                        <th>Créer equipe</th>
-                    {% endif %}
-
-                </tr>
-                </thead>
-                <tbody>
-                {% for ad in ads %}
+                <table class="table striped col s10 offset-s1">
+                    <thead>
                     <tr>
-                        <td>{{ ad.sixte_name }}</td>
-                        <td>{{ ad.sixte_location }}</td>
-                        <td>{{ ad.sixte_prix }}€</td>
-                        <td>{{ ad.sixte_date }}</td>
-                        <td>{{ ad.sixte_limit }}</td>
-                        <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
-                        <td><a href="{% url 'view_team' id=ad.id %}"><i class="material-icons">info</i></a></td>
+                        <th>Nom du sixte</th>
+                        <th>Lieu</th>
+                        <th>Prix/Equipe</th>
+                        <th>Date et heure</th>
+                        <th>Date limite d'inscription</th>
+                        <th>Lien event</th>
+                        <th>Les equipes</th>
                         {% if user.is_authenticated %}
-                            <td><a href="{% url 'create_team' id=ad.id %}"><i class="material-icons">add_circle_outline</i></a></td>
+                            <th>Créer equipe</th>
                         {% endif %}
+
                     </tr>
-                {% empty %}
-                    <tr>
-                        <td>Il n'y a aucun sixte encore renseigné</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {% for ad in ads %}
+                        <tr>
+                            <td>{{ ad.sixte_name }}</td>
+                            <td>{{ ad.sixte_location }}</td>
+                            <td>{{ ad.sixte_prix }}€</td>
+                            <td>{{ ad.sixte_date }}</td>
+                            <td>{{ ad.sixte_limit }}</td>
+                            <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                            <td><a href="{% url 'view_team' id=ad.id %}"><i class="material-icons">info</i></a></td>
+                            {% if user.is_authenticated %}
+                                <td><a href="{% url 'create_team' id=ad.id %}"><i class="material-icons">add_circle_outline</i></a></td>
+                            {% endif %}
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun sixte encore renseigné</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+    <div id="Page2" style="display:none">
+                <h2 class="flow-text red-text darken-2 center">Liste des sixtes passés :</h2>
+
+        <div>
+            <div class="row mt50">
+
+
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2');">Voir les futurs sixtes</a>
+                    </center>
+                </div>
+
+                <table class="table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Nom du sixte</th>
+                        <th>Lieu</th>
+                        <th>Prix/Equipe</th>
+                        <th>Date et heure</th>
+                        <th>Date limite d'inscription</th>
+                        <th>Lien event</th>
+                        <th>Les equipes</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for oldad in oldads %}
+                        <tr>
+                            <td>{{ oldad.sixte_name }}</td>
+                            <td>{{ oldad.sixte_location }}</td>
+                            <td>{{ oldad.sixte_prix }}€</td>
+                            <td>{{ oldad.sixte_date }}</td>
+                            <td>{{ oldad.sixte_limit }}</td>
+                            <td><a href="{{ oldad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                            <td><a href="{% url 'view_team' id=oldad.id %}"><i class="material-icons">info</i></a></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun sixte encore renseigné</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>function show(shown, hidden1){
+        document.getElementById(shown).style.display='block';
+        document.getElementById(hidden1).style.display='none';
+        return false;
+    }</script>
+
 
 {% endblock %}
