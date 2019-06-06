@@ -15,7 +15,7 @@ from .models import Team
 
 
 def home(request):
-    ads = Ad.objects.all()
+    ads = Ad.objects.all().order_by('-sixte_date')
     return render(request, 'menu/home.html', {
         'ads': ads
     })
