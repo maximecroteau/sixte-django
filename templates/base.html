@@ -1,50 +1,71 @@
 {% load staticfiles %}
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 {% block head %}
     <head>
-        <meta charset="utf-8" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+        <meta charset="utf-8">
+        <title>Untitled Document</title>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/custom.css' %}">
         <script src="{% static 'js/script.js' %}"></script>
     </head>
 {% endblock %}
 
+
 <body>
+{% block nav %}
+    {% if user.is_authenticated %}
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper red darken-2"> <a href="{% url 'home' %}" class="brand-logo right">Mes Sixtes</a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color:white">menu</i></a>
+                    <ul class="left hide-on-med-and-down">
+                        <li class="active"><a href="{% url 'home' %}">Liste des sixtes</a></li>
+                        <li><a href="{% url 'create_ad' %}">Ajouter un sixte</a></li>
+                        <li><a href="{% url 'my_ad' %}">Mes sixtes</a></li>
+                        <li><a href="{% url 'my_teams' %}">Mes equipes</a></li>
+                        <li><a href="{% url 'friendlist' %}">Mes amis</a></li>
+                        <li><a href="{% url 'logout' %}">Deconnexion</a></li>
+                    </ul>
+                    <ul id="mobile-demo" class="side-nav red darken-2">
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li class="active"><a href="{% url 'home' %}" style="color:white">Liste des sixtes</a></li>
+                                <li><a href="{% url 'create_ad' %}" style="color:white">Ajouter un sixte</a></li>
+                                <li><a href="{% url 'my_ad' %}" style="color:white">Mes sixtes</a></li>
+                                <li><a href="{% url 'my_teams' %}" style="color:white">Mes equipes</a></li>
+                                <li><a href="{% url 'friendlist' %}" style="color:white">Mes amis</a></li>
+                                <li><a href="{% url 'logout' %}" style="color:white">Deconnexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    {% else %}
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper red darken-2"> <a href="{% url 'home' %}" class="brand-logo right">Mes Sixtes</a> <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons" style="color:white">menu</i></a>
+                    <ul class="left hide-on-med-and-down">
+                        <li><a href="{% url 'signup' %}" style="color:white">S'inscrire</a></li>
+                        <li><a href="{% url 'login' %}" style="color:white">Connexion</a></li>
+                    </ul>
+                    <ul id="mobile-demo" class="side-nav red darken-2">
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                <li><a href="{% url 'signup' %}" style="color:white">S'inscrire</a></li>
+                                <li><a href="{% url 'login' %}" style="color:white">Connexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
 
-{% if user.is_authenticated %}
-    <nav>
-        {% block nav %}
-            <div class="nav-wrapper red darken-2">
-                <a href="{% url 'home' %}" class="brand-logo right">Mes Sixtes</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="{% url 'home' %}">Liste des sixtes</a></li>
-                    <li><a href="{% url 'create_ad' %}">Ajouter un sixte</a></li>
-                    <li><a href="{% url 'my_ad' %}">Mes sixtes</a></li>
-                    <li><a href="{% url 'my_teams' %}">Mes equipes</a></li>
-                    <li><a href="{% url 'friendlist' %}">Mes amis</a></li>
-                    <li><a href="{% url 'logout' %}">Deconnexion</a></li>
-                </ul>
-            </div>
-        {% endblock %}
-    </nav>
-{% else %}
-    <nav>
-        {% block nav2 %}
-            <div class="nav-wrapper red darken-2">
-                <a href="{% url 'home' %}" class="brand-logo right">Mes Sixtes</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down">
-                    <li><a href="{% url 'signup' %}">S'inscrire</a></li>
-                    <li><a href="{% url 'login' %}">Connexion</a></li>
-                </ul>
-            </div>
-        {% endblock %}
-    </nav>
-{% endif %}
+    {% endif %}
 
+{% endblock %}
 
 <div>
     {% block content %}
@@ -52,9 +73,13 @@
 </div>
 
 {% block script %}
-
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script>
+        $(".button-collapse").sideNav();
+    </script>
 {% endblock %}
+
 </body>
+</html>
