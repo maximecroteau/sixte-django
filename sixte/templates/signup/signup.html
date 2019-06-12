@@ -15,11 +15,12 @@
 
 <body>
 <div class="row mt50">
-    <div class="input-field col s6 offset-s3">
         <center>
+
+        <div class="col s6 offset-s3">
             <h2 class="flow-text red-text darken-2 logo">S'inscrire</h2>
-            <div class="col s6 offset-s3">
                 <form method="post">
+                    <div class="input-field">
                     {% csrf_token %}
                     {% for field in form %}
                         <p>
@@ -32,6 +33,7 @@
 
                     <button class="btn waves-effect red darken-2 btn-co" type="submit" name="action">Confirmer</button>
                     <a class="btn waves-effect red darken-2 btn-co" href="{% url 'login' %}">Se connecter</a>
+                    </div>
                 </form>
             </div>
         </center>
