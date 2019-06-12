@@ -5,8 +5,8 @@
     <div id="Page1">
         <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
         <div class="row mt50">
-            <center>
                 <div class="input-field col s6 offset-s3">
+            <center>
 
                     <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1');">Voir les sixtes passés</a>
 
@@ -15,9 +15,11 @@
                         <input type="search" placeholder="Rechercher..." name="usr_query"
                                value='{{ query }}'>
                     </form>
+                                </center>
+
                 </div>
 
-                <table class="table striped col s10 offset-s1">
+                <table class="responsive-table striped col s10 offset-s1 center">
                     <thead>
                     <tr>
                         <th>Nom du sixte</th>
@@ -54,7 +56,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            </center>
 
         </div>
     </div>
