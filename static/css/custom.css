@@ -32,22 +32,6 @@ input[type=range] {
 }
 
 
-.datepicker-date-display {
-    background-color: #d32f2f;
-}
-
-.datepicker-cancel, .datepicker-clear, .datepicker-today, .datepicker-done {
-    color: #d32f2f;
-}
-
-.datepicker-table td.is-selected {
-    background-color: #d32f2f;
-    opacity: 0.5;
-}
-.datepicker-table td.is-today {
-    color: #d32f2f;
-}
-
 .btn, .btn-large, .btn-small {
     background-color: #d32f2f;
     margin-bottom: 15px;
@@ -74,4 +58,28 @@ input[type=range] {
 
 .closebtn:hover {
   color: black;
+}
+
+.picker__weekday-display{
+    background-color: #d32f2f;
+}
+
+.picker__date-display {
+    background-color: #ef5350;
+}
+
+.picker__day.picker__day--today {
+    color: #d32f2f;
+}
+
+.picker__close, .picker__today {
+    color: #d32f2f;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background-color: #d32f2f;
+}
+
+.picker__nav--prev:hover, .picker__nav--next:hover {
+    background: #ef9a9a;
 }
