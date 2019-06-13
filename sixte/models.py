@@ -10,8 +10,8 @@ class Ad(models.Model):
     sixte_name = models.CharField(max_length=40)
     sixte_location = models.CharField(max_length=100)
     sixte_prix = models.IntegerField()
-    sixte_date = models.DateField(max_length=11)
-    sixte_limit = models.DateField(max_length=11, blank=True)
+    sixte_date = models.CharField(max_length=11)
+    sixte_limit = models.CharField(max_length=11, blank=True)
     sixte_link = models.URLField(blank=True)
 
     class Meta:
