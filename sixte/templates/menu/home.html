@@ -5,8 +5,8 @@
     <div id="Page1">
         <h2 class="flow-text red-text darken-2 center">Liste des sixtes :</h2>
         <div class="row mt50">
-                <div class="input-field col s6 offset-s3">
-            <center>
+            <div class="input-field col s6 offset-s3">
+                <center>
 
                     <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1');">Voir les sixtes passés</a>
 
@@ -15,48 +15,47 @@
                         <input type="search" placeholder="Rechercher..." name="usr_query"
                                value='{{ query }}'>
                     </form>
-                                </center>
+                </center>
 
-                </div>
+            </div>
 
-                <table class="responsive-table striped col s10 offset-s1 center">
-                    <thead>
+            <table class="responsive-table striped col s10 offset-s1 center">
+                <thead>
+                <tr>
+                    <th>Nom du sixte</th>
+                    <th>Lieu</th>
+                    <th>Prix/Equipe</th>
+                    <th>Date et heure</th>
+                    <th>Date limite d'inscription</th>
+                    <th>Lien event</th>
+                    <th>Les equipes</th>
+                    {% if user.is_authenticated %}
+                        <th>Créer equipe</th>
+                    {% endif %}
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for ad in ads %}
                     <tr>
-                        <th>Nom du sixte</th>
-                        <th>Lieu</th>
-                        <th>Prix/Equipe</th>
-                        <th>Date et heure</th>
-                        <th>Date limite d'inscription</th>
-                        <th>Lien event</th>
-                        <th>Les equipes</th>
+                        <td>{{ ad.sixte_name }}</td>
+                        <td>{{ ad.sixte_location }}</td>
+                        <td>{{ ad.sixte_prix }}€</td>
+                        <td>{{ ad.sixte_date }}</td>
+                        <td>{{ ad.sixte_limit }}</td>
+                        <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
+                        <td><a href="{% url 'view_team' id=ad.id %}"><i class="material-icons">info</i></a></td>
                         {% if user.is_authenticated %}
-                            <th>Créer equipe</th>
+                            <td><a href="{% url 'create_team' id=ad.id %}"><i class="material-icons">add_circle_outline</i></a></td>
                         {% endif %}
-
                     </tr>
-                    </thead>
-                    <tbody>
-                    {% for ad in ads %}
-                        <tr>
-                            <td>{{ ad.sixte_name }}</td>
-                            <td>{{ ad.sixte_location }}</td>
-                            <td>{{ ad.sixte_prix }}€</td>
-                            <td>{{ ad.sixte_date }}</td>
-                            <td>{{ ad.sixte_limit }}</td>
-                            <td><a href="{{ ad.sixte_link }}">  <i class="material-icons">arrow_forward</i></a></td>
-                            <td><a href="{% url 'view_team' id=ad.id %}"><i class="material-icons">info</i></a></td>
-                            {% if user.is_authenticated %}
-                                <td><a href="{% url 'create_team' id=ad.id %}"><i class="material-icons">add_circle_outline</i></a></td>
-                            {% endif %}
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td>Il n'y a aucun sixte encore renseigné</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-
+                {% empty %}
+                    <tr>
+                        <td>Il n'y a aucun sixte encore renseigné</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 

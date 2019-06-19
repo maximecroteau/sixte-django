@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sixte.apps.SixteConfig',
     'widget_tweaks',
     'friendship',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +130,7 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+DJANGO_NOTIFICATIONS_CONFIG = { 'SOFT_DELETE': True}
 
 STATIC_URL = '/static/'
 
