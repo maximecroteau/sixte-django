@@ -186,8 +186,7 @@ def friendlist(request):
     requests = Friend.objects.unread_requests(user=user)
     myasks = Friend.objects.sent_requests(user=user)
     users = User.objects.exclude(friends__from_user=user).exclude(id=user.id) \
-        .exclude(friendship_requests_received__from_user=user)
-
+        .exclude(friendship_requests_received__from_user=user).exclude(friendship_requests_sent__to_user=user)
     notifs = notification(request)
 
     return render(request, 'profil/friendlist.html', {
@@ -245,7 +244,7 @@ def searchuser(request):
     myasks = Friend.objects.sent_requests(user=user)
 
     users = User.objects.exclude(friends__from_user=user).exclude(id=user.id) \
-        .exclude(friendship_requests_received__from_user=user).filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
+        .exclude(friendship_requests_received__from_user=user).exclude(friendship_requests_sent__to_user=user).filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query))
 
     notifs = notification(request)
 
