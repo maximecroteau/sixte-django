@@ -13,6 +13,7 @@ class Ad(models.Model):
     sixte_date = models.DateField(max_length=11)
     sixte_limit = models.DateField(max_length=11, blank=True, null=True)
     sixte_link = models.URLField(blank=True)
+    is_verified = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "annonce"

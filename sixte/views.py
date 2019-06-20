@@ -6,6 +6,8 @@ from friendship.models import FriendshipRequest
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 import datetime
 
 from notifications.signals import notify
@@ -29,8 +31,8 @@ def notification(request):
 
 def home(request):
     currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
-    ads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
-    oldads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
+    ads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    oldads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
 
     notifs = notification(request)
 
@@ -60,6 +62,7 @@ def signup(request):
     })
 
 
+@login_required
 def create_ad(request):
     form = CreateAd(request.POST)
 
@@ -76,6 +79,7 @@ def create_ad(request):
     })
 
 
+@login_required
 def create_team(request, id):
     ad = Ad.objects.get(id=id)
     form = CreateTeam(request.POST)
@@ -108,6 +112,7 @@ def del_ad(request, id):
     return redirect('my_ad')
 
 
+@login_required
 def edit_ad(request, id):
     ads_edit = Ad.objects.get(id=id)
     form = CreateAd(request.POST, instance=ads_edit)
@@ -128,11 +133,12 @@ def edit_ad(request, id):
     })
 
 
+@login_required
 def my_ad(request):
     user = request.user
     notifs = notification(request)
 
-    ads = Ad.objects.filter(creator=user).order_by('-sixte_date')
+    ads = Ad.objects.filter(creator=user).filter(is_verified=True).order_by('-sixte_date')
     return render(request, 'menu/myad.html', {
         'ads': ads,
         'notifs': notifs,
@@ -149,6 +155,7 @@ def view_team(request, id):
     })
 
 
+@login_required
 def my_teams(request):
     user = request.user
     teams = Team.objects.filter(creator=user)
@@ -160,6 +167,7 @@ def my_teams(request):
     })
 
 
+@login_required
 def edit_team(request, id):
     team_edit = Team.objects.get(id=id)
     form = CreateTeam(request.POST, instance=team_edit)
@@ -179,6 +187,7 @@ def edit_team(request, id):
     })
 
 
+@login_required
 def friendlist(request):
     # List of this user's friends
     user = request.user
@@ -224,8 +233,8 @@ def refusfriend(request, id):
 def searchad(request):
     query = request.POST['usr_query']
     currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
-    ads = Ad.objects.filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query)).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
-    oldads = Ad.objects.all().order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
+    ads = Ad.objects.filter(is_verified=True).filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query)).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    oldads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
     notifs = notification(request)
 
     return render(request, 'menu/home.html', {
@@ -261,3 +270,25 @@ def unread(request):
     user = request.user
     user.notifications.mark_all_as_read()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def manage(request):
+    if not request.user.is_superuser:
+        return HttpResponse('Vous n\'etes pas super utilisateur')
+
+    ads = Ad.objects.all().filter(is_verified=False).order_by('-sixte_date')
+
+    return render(request, 'menu/admin/manage.html', {
+        'ads': ads
+    })
+
+
+@login_required
+def checkad(request, id):
+    if not request.user.is_superuser:
+        return HttpResponse('Vous n\'etes pas super utilisateur')
+
+    ad = Ad.objects.filter(id=id)
+    ad.update(is_verified=True)
+    return redirect('manage')

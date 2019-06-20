@@ -9,6 +9,9 @@
                 <center>
 
                     <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page2','Page1');">Voir les sixtes passés</a>
+                    {% if request.user.is_superuser %}
+                        <a class="btn waves-effect red darken-2 btn-co" href="{% url 'manage' %}">Manage Page</a>
+                    {% endif %}
 
                     <form class="search" action="{% url 'searchad' %}" method='post'>
                         {% csrf_token %}
@@ -69,6 +72,9 @@
                 <div class="input-field col s6 offset-s3">
                     <center>
                         <a href="#" class="btn waves-effect red darken-2 btn-co" onclick="return show('Page1','Page2');">Voir les futurs sixtes</a>
+                        {% if request.user.is_superuser %}
+                            <a class="btn waves-effect red darken-2 btn-co" href="{% url 'manage' %}">Manage Page</a>
+                        {% endif %}
                     </center>
                 </div>
 
