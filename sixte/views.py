@@ -214,12 +214,11 @@ def askfriend(request, id):
     Friend.objects.add_friend(request.user, other_user)
 
     notify.send(user, recipient=other_user, verb="Vous avez recu une demande d'ami")
-
     return redirect('friendlist')
 
 
 def addfriend(request, id):
-    friend_request = FriendshipRequest.objects.get(from_user_id=id)
+    friend_request = FriendshipRequest.objects.get(from_user_id=id, to_user=request.user)
     friend_request.accept()
     return redirect('friendlist')
 
