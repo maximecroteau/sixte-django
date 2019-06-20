@@ -23,4 +23,5 @@ urlpatterns = [
     path('unread', views.unread, name='unread'),
     path('manage', views.manage, name='manage'),
     path('checkad/<int:id>', views.checkad, name='checkad'),
+    path('softdelad/<int:id>', views.softdelad, name='softdelad')
 ]

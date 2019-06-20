@@ -31,8 +31,8 @@ def notification(request):
 
 def home(request):
     currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
-    ads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
-    oldads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
+    ads = Ad.objects.all().filter(is_verified=True).filter(soft_delete=False).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    oldads = Ad.objects.all().filter(is_verified=True).filter(soft_delete=False).order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
 
     notifs = notification(request)
 
@@ -138,7 +138,7 @@ def my_ad(request):
     user = request.user
     notifs = notification(request)
 
-    ads = Ad.objects.filter(creator=user).filter(is_verified=True).order_by('-sixte_date')
+    ads = Ad.objects.filter(creator=user).filter(is_verified=True).filter(soft_delete=False).order_by('-sixte_date')
     return render(request, 'menu/myad.html', {
         'ads': ads,
         'notifs': notifs,
@@ -233,7 +233,7 @@ def refusfriend(request, id):
 def searchad(request):
     query = request.POST['usr_query']
     currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
-    ads = Ad.objects.filter(is_verified=True).filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query)).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
+    ads = Ad.objects.filter(is_verified=True).filter(soft_delete=False).filter(Q(sixte_name__icontains=query) | Q(sixte_location__icontains=query)).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
     oldads = Ad.objects.all().filter(is_verified=True).order_by('-sixte_date').filter(sixte_date__range=["1900-01-01", currentdate])
     notifs = notification(request)
 
@@ -277,7 +277,7 @@ def manage(request):
     if not request.user.is_superuser:
         return HttpResponse('Vous n\'etes pas super utilisateur')
 
-    ads = Ad.objects.all().filter(is_verified=False).order_by('-sixte_date')
+    ads = Ad.objects.all().filter(is_verified=False).filter(soft_delete=False).order_by('-sixte_date')
 
     return render(request, 'menu/admin/manage.html', {
         'ads': ads
@@ -292,3 +292,14 @@ def checkad(request, id):
     ad = Ad.objects.filter(id=id)
     ad.update(is_verified=True)
     return redirect('manage')
+
+
+@login_required
+def softdelad(request, id):
+    if not request.user.is_superuser:
+        return HttpResponse('Vous n\'etes pas super utilisateur')
+
+    ad = Ad.objects.filter(id=id)
+    ad.update(soft_delete=True)
+    return redirect('manage')
+
