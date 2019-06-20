@@ -137,8 +137,9 @@ def edit_ad(request, id):
 def my_ad(request):
     user = request.user
     notifs = notification(request)
+    currentdate = datetime.datetime.today().strftime('%Y-%m-%d')
 
-    ads = Ad.objects.filter(creator=user).filter(is_verified=True).filter(soft_delete=False).order_by('-sixte_date')
+    ads = Ad.objects.filter(creator=user).filter(is_verified=True).filter(soft_delete=False).order_by('-sixte_date').filter(sixte_date__range=[currentdate, "2100-01-01"])
     return render(request, 'menu/myad.html', {
         'ads': ads,
         'notifs': notifs,
