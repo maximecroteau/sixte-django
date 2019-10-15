@@ -7,8 +7,8 @@ from django.shortcuts import render_to_response
 
 
 def index(request):
-    daterequest = "10/29/2019"
-    # daterequest = datetime.datetime.today().strftime('%m/%d/%Y')
+    # daterequest = "10/29/2019"
+    daterequest = datetime.datetime.today().strftime('%m/%d/%Y')
     request = requests.get(
         "https://edtmobiliteng.wigorservices.net//WebPsDyn.aspx?action=posEDTBEECOME&serverid=C&Tel=maxime.croteau&date=" + daterequest + "")
     page = request.content
