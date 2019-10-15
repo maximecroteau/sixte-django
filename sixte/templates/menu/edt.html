@@ -1,14 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Yo</title>
-</head>
-<body>
-<ul>
-    {% for item in lst %}
-            {{ item.day }} {{ item.name }}
-    {% endfor %}
-</ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+    <table class="responsive-table striped col s10 offset-s1 center">
+        <thead>
+        <tr>
+            <th>Cours</th>
+            <th>Salle</th>
+            <th>Prof</th>
+            <th>Heure</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in lst %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.classroom }}</td>
+                <td>{{ item.teacher }}</td>
+                <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td>Pas cours</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+
