@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <body>
+    <div class="container">
+        <div class="row msg-container">
+
+            {% for message in messages %}
+
+                <div class="col m12 col s12">
+                    <div class="box-red darken-2">
+                        <p id="message ">{{ message.msg_content }} </p>
+                        <label for="message">{{ message.sender.username }}</label>
+                        <br>
+                    </div>
+                </div>
+
+            {% empty %}
+                <div class="col m12 col s12">
+                    <div class="box-red darken-2">
+                        <p id="message ">N'hesite pas à envoyer un message</p>
+                        <label for="message">Sixte Admin</label>
+                        <br>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+
+        <div class="row">
+            <form method="POST" class="post-form">
+                    {% csrf_token %}
+                <div class="col m9 s9" >
+                    <input type="text" name="msg_content" placeholder="Message..." required id="msg_content"/>
+                </div>
+                <div class="col m3 s3" >
+                    <button type="submit" class="btn waves-effect red darken-2"><i class="material-icons white-text">send</i></button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </body>
+
+{% endblock %}

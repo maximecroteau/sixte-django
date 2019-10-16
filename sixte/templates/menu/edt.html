@@ -26,6 +26,31 @@
         </tbody>
     </table>
 
+    <div class="row mt50">
+        <div class="col s6 offset-s3">
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label>Date : </label>
+                                <input type="text" class="datepicker" id="date" required name="date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="submit" class="btn btn-default red darken-2">Go</button>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 
 {% endblock %}
 
