@@ -1,30 +1,293 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <table class="responsive-table striped col s10 offset-s1 center">
-        <thead>
-        <tr>
-            <th>Cours</th>
-            <th>Salle</th>
-            <th>Prof</th>
-            <th>Heure</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in lst %}
-            <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.classroom }}</td>
-                <td>{{ item.teacher }}</td>
-                <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
-            </tr>
-        {% empty %}
-            <tr>
-                <td>Pas cours</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div id="Main">
+        <h2 class="flow-text red-text darken-2 center">Cours d'aujourd'hui :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Lundi','Main','Mardi','Mercredi','Jeudi','Vendredi');">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mardi','Main','Lundi','Mercredi','Jeudi','Vendredi');">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mercredi','Main','Mardi','Lundi','Jeudi','Vendredi');">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Jeudi','Main','Mardi','Mercredi','Lundi','Vendredi');">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Vendredi','Main','Mardi','Mercredi','Jeudi','Lundi');">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in today %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.classroom }}</td>
+                            <td>{{ item.teacher }}</td>
+                            <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Lundi" style="display:none">
+        <h2 class="flow-text red-text darken-2 center">Cours de Lundi :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Main','Lundi','Mardi','Mercredi','Jeudi','Vendredi');">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mardi','Main','Lundi','Mercredi','Jeudi','Vendredi');">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mercredi','Main','Mardi','Lundi','Jeudi','Vendredi');">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Jeudi','Main','Mardi','Mercredi','Lundi','Vendredi');">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Vendredi','Main','Mardi','Mercredi','Jeudi','Lundi');">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for l in lundi %}
+                        <tr>
+                            <td>{{ l.name }}</td>
+                            <td>{{ l.classroom }}</td>
+                            <td>{{ l.teacher }}</td>
+                            <td>{{ l.from_hours }} - {{ l.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Mardi" style="display:none">
+        <h2 class="flow-text red-text darken-2 center">Cours de Mardi :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Main','Lundi','Mardi','Mercredi','Jeudi','Vendredi');">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Lundi','Main','Mardi','Mercredi','Jeudi','Vendredi');">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mercredi','Main','Mardi','Lundi','Jeudi','Vendredi');">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Jeudi','Main','Mardi','Mercredi','Lundi','Vendredi');">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Vendredi','Main','Mardi','Mercredi','Jeudi','Lundi');">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in mardi %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.classroom }}</td>
+                            <td>{{ item.teacher }}</td>
+                            <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Mercredi" style="display:none">
+        <h2 class="flow-text red-text darken-2 center">Cours de Mercredi :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Main','Lundi','Mardi','Mercredi','Jeudi','Vendredi');">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Lundi','Main','Mardi','Mercredi','Jeudi','Vendredi');">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mardi','Main','Lundi','Mercredi','Jeudi','Vendredi');">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Jeudi','Main','Mardi','Mercredi','Lundi','Vendredi');">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Vendredi','Main','Mardi','Mercredi','Jeudi','Lundi');">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in mercredi %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.classroom }}</td>
+                            <td>{{ item.teacher }}</td>
+                            <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Jeudi" style="display:none">
+        <h2 class="flow-text red-text darken-2 center">Cours de Jeudi :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Main','Lundi','Mardi','Mercredi','Jeudi','Vendredi');">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Lundi','Main','Mardi','Mercredi','Jeudi','Vendredi');">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mardi','Main','Lundi','Mercredi','Jeudi','Vendredi');">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mercredi','Main','Mardi','Jeudi','Lundi','Vendredi');">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Vendredi','Main','Mardi','Mercredi','Jeudi','Lundi');">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in jeudi %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.classroom }}</td>
+                            <td>{{ item.teacher }}</td>
+                            <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="Vendredi" style="display:none">
+        <h2 class="flow-text red-text darken-2 center">Cours de Vendredi :</h2>
+        <div>
+            <div class="row mt50">
+                <div class="input-field col s6 offset-s3">
+                    <center>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Main','Lundi','Mardi','Mercredi','Jeudi','Vendredi');">Aujourd'hui</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Lundi','Main','Mardi','Mercredi','Jeudi','Vendredi');">Lundi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mardi','Main','Lundi','Mercredi','Jeudi','Vendredi');">Mardi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Mercredi','Main','Mardi','Jeudi','Lundi','Vendredi');">Mercredi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co"
+                           onclick="return show('Jeudi','Main','Mardi','Mercredi','Vendredi','Lundi');">Jeudi</a>
+                        <a href="#" class="btn waves-effect red darken-2 btn-co">Vendredi</a>
+                    </center>
+                </div>
+
+                <table class="responsive-table striped col s10 offset-s1">
+                    <thead>
+                    <tr>
+                        <th>Cours</th>
+                        <th>Salle</th>
+                        <th>Prof</th>
+                        <th>Heure</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in vendredi %}
+                        <tr>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.classroom }}</td>
+                            <td>{{ item.teacher }}</td>
+                            <td>{{ item.from_hours }} - {{ item.to_hours }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>Il n'y a aucun cours</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <div class="row mt50">
         <div class="col s6 offset-s3">
@@ -51,6 +314,16 @@
     </div>
 
 
+    <script>function show(shown, hidden1, hidden2, hidden3, hidden4, hidden5) {
+        document.getElementById(shown).style.display = 'block';
+        document.getElementById(hidden1).style.display = 'none';
+        document.getElementById(hidden2).style.display = 'none';
+        document.getElementById(hidden3).style.display = 'none';
+        document.getElementById(hidden4).style.display = 'none';
+        document.getElementById(hidden5).style.display = 'none';
+
+        return false;
+    }</script>
 
 {% endblock %}
 

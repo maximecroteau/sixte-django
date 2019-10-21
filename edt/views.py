@@ -11,17 +11,31 @@ def index(request):
     daterequest = datetime.datetime.today().strftime('%m/%d/%Y')
 
     if request.method == 'POST':
-        print('before valid')
         if form.is_valid():
-            print('valid')
             daterequest = form.cleaned_data['date']
-            print(daterequest)
             daterequest = datetime.datetime.strftime(daterequest, '%m/%d/%Y')
-            print(daterequest)
 
     lst = function.scrap(daterequest)
 
+    today = lst[0]
+    lundi = lst[1]
+    mardi = lst[2]
+    mercredi = lst[3]
+    jeudi = lst[4]
+    vendredi = lst[5]
+
+    print(lundi)
+    print(mardi)
+    print(mercredi)
+    print(jeudi)
+    print(vendredi)
+
     return render(request, 'menu/edt.html', {
-        "lst": lst,
+        "today": today,
+        "lundi": lundi,
+        "mardi": mardi,
+        "mercredi": mercredi,
+        "jeudi": jeudi,
+        "vendredi": vendredi,
         "form": form,
     })

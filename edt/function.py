@@ -11,6 +11,11 @@ def scrap(daterequest):
     soup = BeautifulSoup(page, "lxml")
 
     lst = []
+    lundi = []
+    mardi = []
+    mercredi = []
+    jeudi = []
+    vendredi = []
 
     cours = soup.find_all("div", {"class": "Case"})
     dates = soup.find_all("td", {"class": "TCJour"})
@@ -19,6 +24,11 @@ def scrap(daterequest):
         dic = {}
         dic["day"] = "Pas cours cette semaine"
         lst.append(dic)
+        lundi.append(dic)
+        mardi.append(dic)
+        mercredi.append(dic)
+        jeudi.append(dic)
+        vendredi.append(dic)
 
     else:
         for c in cours:
@@ -63,7 +73,18 @@ def scrap(daterequest):
                 tday = find_day(daterequest)
                 if day == tday:
                     lst.append(dic)
-        return lst
+                if day == "Lundi":
+                    lundi.append(dic)
+                if day == "Mardi":
+                    mardi.append(dic)
+                if day == "Mercredi":
+                    mercredi.append(dic)
+                if day == "Jeudi":
+                    jeudi.append(dic)
+                if day == "Vendredi":
+                    vendredi.append(dic)
+
+    return lst, lundi, mardi, mercredi, jeudi, vendredi
 
 
 def find_day(date):
